@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:users_app/assistants/assistant_methods.dart';
 import 'package:users_app/authentication/login_screen.dart';
 import 'package:users_app/global/global.dart';
+import 'package:users_app/infoHandler/app_info.dart';
 import 'package:users_app/widgets/my_drawer.dart';
 
 class MainScreen extends StatefulWidget {
@@ -204,6 +206,8 @@ class _MainScreenState extends State<MainScreen> {
     if (_locationPermission == LocationPermission.denied) {
       _locationPermission = await Geolocator.requestPermission();
     }
+
+    return _locationPermission;
   }
 
   locateUserPosition() async {
@@ -219,6 +223,11 @@ class _MainScreenState extends State<MainScreen> {
 
     newGoogleMapController!
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    String humanReadableAddress =
+        await AssistantMethods.searchAddressForGeographicCoOrdinates(
+            userCurrentPosition!, context);
+    print("this is your address = " + humanReadableAddress);
   }
 
   @override
@@ -327,7 +336,15 @@ class _MainScreenState extends State<MainScreen> {
                                     TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                               Text(
-                                "your current location",
+                                Provider.of<AppInfo>(context)
+                                            .userPickUpLocation !=
+                                        null
+                                    ? (Provider.of<AppInfo>(context)
+                                                .userPickUpLocation!
+                                                .locationName!)
+                                            .substring(0, 24) +
+                                        "..."
+                                    : "not getting address",
                                 style: const TextStyle(
                                     color: Colors.grey, fontSize: 14),
                               ),

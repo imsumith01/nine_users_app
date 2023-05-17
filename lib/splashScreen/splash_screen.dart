@@ -51,7 +51,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
                 height: 10,
               ),
               const Text(
-                "User App",
+                "Passenger app",
                 style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
