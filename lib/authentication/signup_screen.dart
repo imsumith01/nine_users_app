@@ -95,7 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 10,
               ),
               const Text(
-                "Register as a passenger",
+                "Register as a Passenger",
                 style: TextStyle(
                   fontSize: 26,
                   color: Colors.grey,

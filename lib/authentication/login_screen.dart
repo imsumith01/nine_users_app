@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               const Text(
-                "Login as a User",
+                "Login as a passenger",
                 style: TextStyle(
                   fontSize: 26,
                   color: Colors.grey,
